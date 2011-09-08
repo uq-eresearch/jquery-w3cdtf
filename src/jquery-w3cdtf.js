@@ -133,6 +133,7 @@
             this._current.day = eventObject.target.value;
           }, this));
 
+          daySelect.toggle(this._current.month != '');
         },
 
         _getSelectorOptions : function(values, current) {
