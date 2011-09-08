@@ -4,23 +4,47 @@ describe('jquery-w3cdtf', function() {
     expect(typeof ($.fn.w3cdtf)).toBe('function');
   });
 
-  it('hides the existing class and adds a div', function() {
-    var wrapper = $('<div/>');
-    $('body').append(wrapper);
-    var initialElement = $('<input type="text" name="foo" value="1982"/>');
-    wrapper.append(initialElement);
-    expect($('input:hidden').length).toBe(0);
-    expect($('div', wrapper).length).toBe(0);
+  describe('initialization', function() {
+    var wrapper = null;
+    var initialElement = null;
 
-    $(initialElement).w3cdtf({});
+    beforeEach(function() {
+      wrapper = $('<div/>');
+      $('body').append(wrapper);
+      initialElement = $('<input type="text" name="foo"/>');
+      wrapper.append(initialElement);
+    });
 
-    expect($('input:hidden').length).toBe(1);
-    expect($('div', wrapper).length).toBe(1);
+    it('hides the existing class and adds a div', function() {
+      initialElement.val('1982');
 
-    wrapper.remove();
+      expect($('input:hidden').length).toBe(0);
+      expect($('div', wrapper).length).toBe(0);
+
+      $(initialElement).w3cdtf({});
+
+      expect($('input:hidden').length).toBe(1);
+      expect($('div', wrapper).length).toBe(1);
+    });
+
+    it('takes a minDate option', function() {
+      initialElement.val('1945');
+
+      $(initialElement).w3cdtf({
+        minDate : new Date(1900, 0, 1, 0, 0, 0)
+      });
+
+      expect($('div select:eq(0)', wrapper).val()).toBe('1945');
+      expect($('div select:eq(0) option:last', wrapper).text()).toBe('1900');
+    });
+
+    afterEach(function() {
+      wrapper.remove();
+    });
+
   });
 
-  describe('population behaviour', function() {
+  describe('population', function() {
     var wrapper = null;
     var initialElement = null;
 
