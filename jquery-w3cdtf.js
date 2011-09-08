@@ -32,10 +32,10 @@
           var widget = $('<div/>');
           widget.addClass(this.widgetBaseClass);
 
-          this.element.hide();
-
           var iv = /^(\d*)-?(\d*)-?(\d*)$/.exec(this.element.val() + '');
           iv.shift(); // Remove complete match
+
+          this.element.hide();
 
           this._current = {};
           _.each([ 'year', 'month', 'day' ], _.bind(function(v, i) {

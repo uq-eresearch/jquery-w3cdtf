@@ -55,6 +55,16 @@ describe('jquery-w3cdtf', function() {
       wrapper.append(initialElement);
     });
 
+    it('should handle null values', function() {
+      $(initialElement).w3cdtf({});
+
+      expect($('div select:eq(0)', wrapper).val()).toBe('');
+      expect($('div select:eq(1)', wrapper).val()).toBe('');
+      expect($('div select:eq(2)', wrapper).val()).toBe('');
+
+      expect(initialElement.val()).toBe('');
+    });
+
     it('should handle a single year', function() {
       initialElement.val('1985');
       $(initialElement).w3cdtf({});
