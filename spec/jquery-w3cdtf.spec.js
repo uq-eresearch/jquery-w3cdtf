@@ -31,11 +31,20 @@ describe('jquery-w3cdtf', function() {
       initialElement.val('1945');
 
       $(initialElement).w3cdtf({
-        minDate : new Date(1900, 0, 1, 0, 0, 0)
+        minDate : new Date(1900, 6, 23, 0, 0, 0)
       });
 
       expect($('div select:eq(0)', wrapper).val()).toBe('1945');
       expect($('div select:eq(0) option:last', wrapper).text()).toBe('1900');
+      $('div select:eq(0) option:selected').removeAttr('selected');
+      $('div select:eq(0) option:last', wrapper).attr('selected', 'selected');
+      $('div select:eq(0)', wrapper).change();
+      expect($('div select:eq(1) option:eq(1)', wrapper).text()).toBe('07');
+      $('div select:eq(1) option:selected').removeAttr('selected');
+      $('div select:eq(1) option:eq(1)', wrapper).attr('selected', 'selected');
+      $('div select:eq(1)', wrapper).change();
+      expect($('div select:eq(2) option:eq(1)', wrapper).text()).toBe('23');
+
     });
 
     afterEach(function() {

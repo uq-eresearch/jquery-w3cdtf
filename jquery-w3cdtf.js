@@ -120,7 +120,12 @@
           monthSelect.empty();
           monthSelect.append($("<option/>").text(''));
 
-          var months = _.range(1, 12 + 1, 1).map(function(n) {
+          var startIndex = 1;
+          if (this._current.year == this.options.minDate.getFullYear()) {
+            startIndex = this.options.minDate.getMonth() + 1;
+          }
+
+          var months = _.range(startIndex, 12 + 1, 1).map(function(n) {
             return n < 10 ? '0' + n : n;
           });
           $(this._getSelectorOptions(months, this._current.month)).appendTo(
@@ -142,7 +147,13 @@
           };
           daySelect.append($("<option/>").text(''));
 
-          var days = _.range(1,
+          var startIndex = 1;
+          if (this._current.year == this.options.minDate.getFullYear()
+              && parseInt(this._current.month, 10) == this.options.minDate
+                  .getMonth() + 1) {
+            startIndex = this.options.minDate.getDate();
+          }
+          var days = _.range(startIndex,
               daysInMonth(this._current.year, this._current.month) + 1).map(
               function(n) {
                 return n < 10 ? '0' + n : n;
