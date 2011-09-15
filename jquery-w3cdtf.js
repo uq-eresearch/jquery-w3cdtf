@@ -25,7 +25,7 @@
 
         options : {
           minDate : new Date(0),
-          maxDate : null,
+          maxDate : null
         },
 
         _create : function() {
